@@ -1,23 +1,6 @@
-import { Flex, Box, Image, Text, Icon } from '@chakra-ui/react'
-import { useState } from 'react'
-import { MdStarOutline } from 'react-icons/md'
-import { AddIcon, MinusIcon } from '@chakra-ui/icons'
+import { Flex, Box, Image, Text } from '@chakra-ui/react'
 
 const Specification = () => {
-  const specifications = [
-    { name: 'Keys', desc: '9 Keys' },
-    { name: 'Connection Type', desc: 'Wired' },
-    { name: 'Resolution', desc: '100 - 1000' },
-    { name: 'Acceleration', desc: '25g' },
-    { name: 'Color Option', desc: 'Default 5RGB Lighting' },
-    { name: 'Switch Lifecycle', desc: 'Over 20 million clicks' },
-    { name: 'Keys', desc: '9 Keys' },
-    { name: 'Connection Type', desc: 'Wired' },
-    { name: 'Resolution', desc: '100 - 1000' },
-    { name: 'Acceleration', desc: '25g' },
-    { name: 'Color Option', desc: 'Default 5RGB Lighting' },
-    { name: 'Switch Lifecycle', desc: 'Over 20 million clicks' }
-  ]
   return (
     <Box w="30%">
       <Text

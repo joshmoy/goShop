@@ -1,5 +1,5 @@
 import React, { ReactChild } from 'react'
-import { Box, Button, Text, Container } from '@chakra-ui/react'
+import { Box, Container } from '@chakra-ui/react'
 import Head from 'next/head'
 import ProductSection from '@components/templates/ProductSection'
 import Header from '@components/layout/Header'

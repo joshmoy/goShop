@@ -2,7 +2,7 @@ import { Box, Text, Flex, Icon } from '@chakra-ui/react'
 import { MdShoppingBag, MdOutlineShoppingCart, MdPermIdentity } from 'react-icons/md'
 import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons'
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FC } from 'react'
 
 const Header = () => {
   const [, setIsSticky] = useState(false)
@@ -109,8 +109,11 @@ const Header = () => {
     </Box>
   )
 }
-
-const Links = ({ name, hasChild }) => {
+interface IProps {
+  name: string
+  hasChild: boolean
+}
+const Links: FC<IProps> = ({ name, hasChild }) => {
   return (
     <Flex color="brand.text" align="center" _notLast={{ marginRight: '2rem' }}>
       <Text>{name}</Text>

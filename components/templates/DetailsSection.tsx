@@ -1,10 +1,7 @@
-import { Flex, Box, Image, Text, Icon } from '@chakra-ui/react'
-import { MdStarOutline } from 'react-icons/md'
-import { AddIcon, MinusIcon } from '@chakra-ui/icons'
+import { Flex, Box, Text } from '@chakra-ui/react'
 import Specification from './Specification'
 import Description from './Description'
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 const DetailsSection = () => {
   const [isSticky, setIsSticky] = useState(false)
@@ -36,25 +33,25 @@ const DetailsSection = () => {
     { name: 'Switch Lifecycle', desc: 'Over 20 million clicks' }
   ]
 
-  const container = {
-    hidden: { opacity: 0, y: 5 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 1,
-        delayChildren: 1,
-        staggerChildren: 0.3,
-        type: 'spring',
-        stiffness: 5
-      }
-    }
-  }
+  // const container = {
+  //   hidden: { opacity: 0, y: 5 },
+  //   show: {
+  //     opacity: 1,
+  //     y: 0,
+  //     transition: {
+  //       delay: 1,
+  //       delayChildren: 1,
+  //       staggerChildren: 0.3,
+  //       type: 'spring',
+  //       stiffness: 5
+  //     }
+  //   }
+  // }
 
-  const item = {
-    hidden: { opacity: 0, y: 5 },
-    show: { opacity: 1, y: 0, trasition: { type: 'spring', stiffness: 3 } }
-  }
+  // const item = {
+  //   hidden: { opacity: 0, y: 5 },
+  //   show: { opacity: 1, y: 0, trasition: { type: 'spring', stiffness: 3 } }
+  // }
 
   const handleClick = (param: string) => {
     setActiveTab(param)
