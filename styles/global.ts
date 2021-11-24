@@ -1,13 +1,14 @@
 export default {
   global: {
     html: {
-      fontSize: '62.5%'
+      fontSize: '62.5%',
+      scrollBehaviour: 'smooth'
     },
     body: {
       bg: '#fff',
       color: '#41546c',
       fontSize: '1.4rem',
-      fontFamily: 'Montserrat, sans-serif'
+      fontFamily: 'Poppins, sans-serif'
     },
     a: {
       _hover: {

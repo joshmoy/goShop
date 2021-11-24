@@ -1,6 +1,9 @@
 import React, { ReactChild } from 'react'
-import { Box, Button, Text } from '@chakra-ui/react'
+import { Box, Button, Text, Container } from '@chakra-ui/react'
 import Head from 'next/head'
+import ProductSection from '@components/templates/ProductSection'
+import Header from '@components/layout/Header'
+import DetailsSection from '@components/templates/DetailsSection'
 
 const Home = (): ReactChild => {
   return (
@@ -8,9 +11,13 @@ const Home = (): ReactChild => {
       <Head>
         <title>Home</title>
       </Head>
-
-      <Text>Home page</Text>
-      <Button>Click Me</Button>
+      <Box bgColor="#040728" minW="100vw" minH="100vh">
+        <Header />
+        <Container maxW="1100px">
+          <ProductSection />
+          <DetailsSection />
+        </Container>
+      </Box>
     </Box>
   )
 }
