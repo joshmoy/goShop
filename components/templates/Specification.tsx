@@ -1,17 +1,39 @@
 import { Flex, Box, Image, Text } from '@chakra-ui/react'
+import { motion, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
+import { container2, item } from './variants'
+import { useEffect } from 'react'
 
 const Specification = () => {
+  const [ref, inView] = useInView()
+  const controls = useAnimation()
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('show')
+    }
+  }, [controls, inView])
   return (
-    <Box w="30%">
+    <Box
+      w={{ base: '100%', md: '30%' }}
+      ref={ref}
+      animate={controls}
+      as={motion.div}
+      initial="hidden"
+      variants={container2}>
       <Text
         bgGradient="linear(to-r, brand.main, #fff)"
         bgClip="text"
         fontSize="1.8rem"
-        mt="2rem"
+        as={motion.p}
+        variants={item}
+        mt={{ base: '5rem', md: '2rem' }}
         fontWeight="extrabold">
         Related Product
       </Text>
       <Flex
+        as={motion.div}
+        variants={item}
         direction="column"
         justify="center"
         mt="3rem"
