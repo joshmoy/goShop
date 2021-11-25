@@ -34,9 +34,9 @@ const ProductSection = () => {
   }
 
   return (
-    <Box mt="10rem" h="calc(100vh - 15rem)" pt="5rem">
-      <Flex justify="space-between">
-        <Box w="55%">
+    <Box mt="10rem" minH="calc(100vh - 15rem)" pt="5rem">
+      <Flex justify="space-between" direction={{ base: 'column', md: 'row' }}>
+        <Box w={{ base: '100%', md: '55%' }}>
           <Flex
             border="2px solid rgba(119, 244, 254, 0.1)"
             h="60vh"
@@ -70,17 +70,17 @@ const ProductSection = () => {
                 h="13rem"
                 _first={{ borderBottomLeftRadius: '50px' }}
                 border="2px solid rgba(119, 244, 254, 0.1)">
-                <Image src={el} h="7rem" />
+                <Image src={el} h={{ base: '5rem', md: '7rem' }} />
               </Flex>
             ))}
           </Flex>
         </Box>
-        <Box w="39%">
+        <Box w={{ base: '100%', md: '39%' }}>
           <Text
             color="#fff"
             fontWeight="900"
             fontSize="2.8rem"
-            mt="2rem"
+            mt={{ base: '4rem', md: '2rem' }}
             as={motion.div}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0, transition: { duration: 2 } }}>
@@ -154,7 +154,7 @@ const ProductSection = () => {
                 justify="space-between"
                 align="center"
                 bgColor="#030a2c"
-                w="200px">
+                w={{ base: '158px', md: '200px' }}>
                 <Flex
                   h="2.4rem"
                   w="2.4rem"
@@ -181,7 +181,7 @@ const ProductSection = () => {
                   <MinusIcon />
                 </Flex>
               </Flex>
-              <Flex color="brand.main" fontSize="3rem" fontWeight="900">
+              <Flex color="brand.main" fontSize={{ base: '2.4rem', md: '3rem' }} fontWeight="900">
                 Total: $99.99
               </Flex>
             </Flex>
