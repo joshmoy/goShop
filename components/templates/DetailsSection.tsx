@@ -1,12 +1,25 @@
-import { Flex, Box, Text } from '@chakra-ui/react'
+import { Flex, Box, Text, useMediaQuery } from '@chakra-ui/react'
 import Specification from './Specification'
 import Description from './Description'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
+import { motion, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
+import { container, item } from './variants'
 const DetailsSection = () => {
   const [isSticky, setIsSticky] = useState(false)
+  const [isMobile] = useMediaQuery('(max-width: 767px)')
   const [activeTab, setActiveTab] = useState('specification')
+  const controls = useAnimation()
+  const [ref, inView] = useInView()
   const router = useRouter()
+  const boxRef = useRef(null)
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('show')
+    }
+  }, [controls, inView])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
@@ -14,9 +27,16 @@ const DetailsSection = () => {
   }, [])
 
   const handleScroll = () => {
-    setIsSticky(window.pageYOffset > 713)
-    if (window.pageYOffset <= 1644) setActiveTab('specification')
-    if (window.pageYOffset > 1644) setActiveTab('description')
+    isMobile ? setIsSticky(window.pageYOffset > 1413) : setIsSticky(window.pageYOffset > 713)
+    if (isMobile) {
+      if (window.pageYOffset <= 3284) setActiveTab('specification')
+      if (window.pageYOffset > 3284) setActiveTab('description')
+      if (window.pageYOffset > 4695) setActiveTab('reviews')
+    } else {
+      if (window.pageYOffset <= 1644) setActiveTab('specification')
+      if (window.pageYOffset > 1644) setActiveTab('description')
+      if (window.pageYOffset > 2850) setActiveTab('reviews')
+    }
   }
   const specifications = [
     { name: 'Keys', desc: '9 Keys' },
@@ -33,92 +53,86 @@ const DetailsSection = () => {
     { name: 'Switch Lifecycle', desc: 'Over 20 million clicks' }
   ]
 
-  // const container = {
-  //   hidden: { opacity: 0, y: 5 },
-  //   show: {
-  //     opacity: 1,
-  //     y: 0,
-  //     transition: {
-  //       delay: 1,
-  //       delayChildren: 1,
-  //       staggerChildren: 0.3,
-  //       type: 'spring',
-  //       stiffness: 5
-  //     }
-  //   }
-  // }
-
-  // const item = {
-  //   hidden: { opacity: 0, y: 5 },
-  //   show: { opacity: 1, y: 0, trasition: { type: 'spring', stiffness: 3 } }
-  // }
-
   const handleClick = (param: string) => {
     setActiveTab(param)
     router.push(`#${param}`)
   }
   return (
     <Box mt="15rem">
-      <Flex justify="space-between">
-        <Box w="55%">
+      <Flex justify="space-between" direction={{ base: 'column', md: 'row' }}>
+        <Box w={{ base: '100%', md: '55%' }}>
           <Flex
             pos={isSticky ? 'fixed' : 'relative'}
             top={isSticky ? '10rem' : '0'}
             left={isSticky ? '0' : '0'}
-            w={isSticky ? '100vw' : '100%'}
+            w={{ base: '100%', md: isSticky ? '100vw' : '100%' }}
             h={isSticky ? '15rem' : 'auto'}
             borderBottom={isSticky ? '1px solid rgba(206, 225, 255, 0.1)' : 'none'}
             align="center"
             zIndex={isSticky ? 500 : 0}
             bgColor="brand.dark">
-            <Flex w="1100px" m="0 auto" px={isSticky ? '1rem' : '0'}>
+            <Flex
+              w="1100px"
+              m="0 auto"
+              ref={ref}
+              animate={controls}
+              as={motion.div}
+              variants={container}
+              initial="hidden"
+              px={{ base: isSticky ? '3rem' : 0, md: isSticky ? '1rem' : '0' }}>
               <Flex
                 borderRadius="1rem"
-                px="2rem"
+                px={{ base: '1rem', md: '2rem' }}
                 align="center"
                 justify="center"
-                w="14rem"
+                w={{ base: 'auto', md: '14rem' }}
                 h="5rem"
-                mr="2rem"
+                mr={{ base: '1rem', md: '2rem' }}
                 color="#fff"
+                as={motion.div}
+                variants={item}
                 opacity={activeTab === 'specification' ? 1 : 0.5}
                 cursor="pointer"
                 onClick={() => handleClick('specification')}
                 fontWeight="900"
-                fontSize="1.6rem"
+                fontSize={{ base: '1.4rem', md: '1.6rem' }}
                 bgColor="#122756">
                 Specification
               </Flex>
               <Flex
                 borderRadius="1rem"
-                px="2rem"
+                px={{ base: '1rem', md: '2rem' }}
                 align="center"
                 justify="center"
-                w="14rem"
+                w={{ base: 'auto', md: '14rem' }}
                 h="5rem"
-                mr="2rem"
+                as={motion.div}
+                variants={item}
+                mr={{ base: '1rem', md: '2rem' }}
                 opacity={activeTab === 'description' ? 1 : 0.5}
                 cursor="pointer"
                 onClick={() => handleClick('description')}
                 color="#fff"
                 fontWeight="900"
-                fontSize="1.6rem"
+                fontSize={{ base: '1.4rem', md: '1.6rem' }}
                 bgColor="#122756">
                 Description
               </Flex>
               <Flex
                 borderRadius="1rem"
-                px="2rem"
+                px={{ base: '1rem', md: '2rem' }}
                 align="center"
                 justify="center"
                 opacity={activeTab === 'reviews' ? 1 : 0.5}
                 cursor="pointer"
+                as={motion.div}
+                variants={item}
                 onClick={() => handleClick('reviews')}
-                w="14rem"
+                w={{ base: 'auto', md: '14rem' }}
                 h="5rem"
                 color="#fff"
                 fontWeight="900"
-                fontSize="1.6rem"
+                fontSize={{ base: '1.4rem', md: '1.6rem' }}
                 bgColor="#122756">
                 Reviews(158)
               </Flex>
@@ -130,13 +144,26 @@ const DetailsSection = () => {
             bgColor="#030a2c"
             border="2px solid rgba(119, 244, 254, 0.1)"
             borderRadius="1.5rem"
+            as={motion.div}
+            ref={boxRef}
+            variants={container}
+            animate={controls}
+            initial="hidden"
             p="5rem 3rem">
-            <Text color="brand.main" fontWeight="900" fontSize="1.6rem" mb="3rem">
+            <Text
+              color="brand.main"
+              fontWeight="900"
+              fontSize="1.6rem"
+              mb="3rem"
+              as={motion.p}
+              variants={item}>
               Specification
             </Text>
             {specifications?.map((el, id) => (
               <Flex
                 key={id}
+                as={motion.div}
+                variants={item}
                 _notLast={{ borderBottom: '1px solid rgba(119, 244, 254, 0.1)' }}
                 py="2rem">
                 <Text w="40%" color="#fff">
